@@ -1,9 +1,6 @@
 #Imports
-import requests
-import json
 import os
 import shutil
-from APIHandler import APIHandler
 from Ah import AuctionHouse
 
 #Functions
