@@ -18,29 +18,35 @@ class ahItem:
     def __getitem__(self, key): return getattr(self, key, None)
     def __setitem__(self, key, val): setattr(self, key, val)
 
-'''
-def scrapeAuctionHouse():
-    query = client.call(auctionQuery, {"page" : 0})
-
-    for j in range( len(query["auctions"])):
-        if query["auctions"][j]["bin"] == True:
-            ahList.append(ahItem(query["auctions"][j]))
-    
-    velicina = query["totalPages"]
-    jsonWrite("ah0.json", query)
-    for i in range(1, velicina):
-        query = client.call(auctionQuery, {"page" : i})
-
-        for j in range( len(query["auctions"])):
-            if query["auctions"][j]["bin"] == True:
-                ahList.append(ahItem(query["auctions"][j]))
-
-        if query is None:
-            print(f"DID NOT manage to get query {i}")
-        else: print(f"Got query {i}")
-        jsonWrite(f"ah{i}.json", query)
-'''
 
 class AuctionHouse:
-    def __init__():
+    def __init__(self):
+        self.list_of_items = []
+        self.parms = {"page" : 0}
+        self.client = APIHandler()
+        self.url = "https://api.hypixel.net/v2/skyblock/auctions?"
+    
+    def scrape(self):
+        self.parms["page"] = 0
+        pages = self.__get_Pages()
+        for i in range(pages):
+            self.parms["page"] = i
+            r = self.client.call(self.url, self.parms)
+            self.__add_to_list(r["auctions"])
+    
+    def size(self): return len(self.list_of_items)
+
+    def __add_to_list(self, auctions):
+        for i in auctions:
+            if self.__check_bin(i):
+                self.list_of_items.append(ahItem(i))
+
+    def __check_bin(self, query):
+        return query["bin"]
+
+    def __get_Pages(self):
+        return self.client.call(self.url)["totalPages"]
         
+    def archive(self):
+        #dodati kasnije da arhivira svaki put
+        pass

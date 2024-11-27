@@ -18,17 +18,8 @@ def jsonWrite(file, content):
         json.dump(content, f, indent=4)
 
 #Variables
-API_FILE = open("API_KEY.json", "r")
-API_KEY = json.loads(API_FILE.read())['API_KEY']
-UUID = None
-playerName = None
-playerQuery = f"https://api.hypixel.net/v2/player?key={API_KEY}&name={playerName}"
-auctionQuery = f"https://api.hypixel.net/v2/skyblock/auctions?"
-uuidToPlayerQuery = f"https://sessionserver.mojang.com/session/minecraft/profile/{UUID}"
-client = APIHandler()
-ahList = []
+auctions = AuctionHouse()
 
 #Code
-deleteTemp()
-scrapeAuctionHouse()
-print(len(ahList))
+auctions.scrape()
+print(auctions.size())
