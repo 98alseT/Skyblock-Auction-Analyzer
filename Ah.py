@@ -18,6 +18,7 @@ class ahItem:
         items["item_name"] = self.__translateLevel(items["item_name"])
         items["item_name"] = self.__translateReforge(items["item_name"], items["category"])
         items["item_name"] = items["item_name"].lstrip()
+        items["item_name"] = items["item_name"].rstrip()
         return items
 
     def __translateReforge(self, name, category):
