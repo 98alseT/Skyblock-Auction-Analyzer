@@ -1,28 +1,37 @@
 import re
+import consts as const
 from APIHandler import APIHandler
 
 class ahItem:
-    ignore = [
-        "bids",
-        "claimed_bidders",
-        "highest_bid_ammount",
-        "last_updated"
-    ]
-
     def __init__(self, items):
         items = self.__cleanUp(items)
         for key, val in items.items():
-            if key in self.ignore: 
+            if key in const.ignore: 
                 continue
             setattr(self, key, val)
 
         setattr(self, "level", None)
+        setattr(self, "reforge", None)
 
     def __cleanUp(self, items):
         items["item_name"] = re.sub(r'[^\x00-\x7F]+', '', items["item_name"])
         items["item_name"] = self.__translateLevel(items["item_name"])
+        items["item_name"] = self.__translateReforge(items["item_name"], items["category"])
         items["item_name"] = items["item_name"].lstrip()
         return items
+
+    def __translateReforge(self, name, category):
+        if category not in const.reforges:
+            return name
+        
+        try:
+            potential_reforge, new_name = name.split(maxsplit=1)
+            if potential_reforge in const.reforges[category]:
+                self.reforge = potential_reforge
+                return new_name
+            return name
+        except ValueError:
+            return name
 
     def __translateLevel(self, name):
         if name[0] == '[':
@@ -31,7 +40,6 @@ class ahItem:
                 self.level = int(name[5:i].strip())
             except ValueError:
                 self.level = None
-            print(self.level)
             name = name[i+1:].strip()
         return name
 
