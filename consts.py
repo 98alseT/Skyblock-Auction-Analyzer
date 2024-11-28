@@ -84,7 +84,7 @@ reforges = {
         "Strengthened",
         "Waxed",
         "Blood-Soaked",
-        "Greater Spook"
+        "Greater Spook", #ovo moram da resim, greater spook, treba oduzeti greater i dodati great ili samo oduzeti er
         "Epic",
         "Fair",
         "Fast",
@@ -129,12 +129,11 @@ reforges = {
         "Earthy"
         "Robust",
         "Zooming",
-        "Peasant's",
-        "Green Thumb",
-        "Blessed",
+        "Peasant's", 
+        "Green Thumb", #ovo moram da resim, hoe reforge
         "Bountiful"
         "Beady",
-        "Buzzing"
+        "Buzzing",
     ]
 }
 
