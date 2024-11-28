@@ -1,3 +1,4 @@
+import re
 from APIHandler import APIHandler
 
 class ahItem:
@@ -9,10 +10,30 @@ class ahItem:
     ]
 
     def __init__(self, items):
+        items = self.__cleanUp(items)
         for key, val in items.items():
             if key in self.ignore: 
                 continue
             setattr(self, key, val)
+
+        setattr(self, "level", None)
+
+    def __cleanUp(self, items):
+        items["item_name"] = re.sub(r'[^\x00-\x7F]+', '', items["item_name"])
+        items["item_name"] = self.__translateLevel(items["item_name"])
+        items["item_name"] = items["item_name"].lstrip()
+        return items
+
+    def __translateLevel(self, name):
+        if name[0] == '[':
+            i = name.find(']')
+            try:
+                self.level = int(name[5:i].strip())
+            except ValueError:
+                self.level = None
+            print(self.level)
+            name = name[i+1:].strip()
+        return name
 
     #python getter i setter
     def __getitem__(self, key): return getattr(self, key, None)
