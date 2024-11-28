@@ -62,7 +62,7 @@ reforges = {
         "Undead",
         "Loving",
         "Ridiculous",
-        "Greater Spook"
+        "Greater Spook", #ovo moram da resim, greater spook, treba oduzeti greater i dodati great ili samo oduzeti er
     ],
     "misc": [
         "Stained",
