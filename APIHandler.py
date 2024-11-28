@@ -12,7 +12,7 @@ class APIHandler:
         except json.JSONDecodeError:
             print("Error: Nije lepo parsiran API key. Moguce da JSON fajl nije dobar.")
 
-    def call(self, url, parms):
+    def call(self, url, parms={}):
         if "auctions" not in url and not self.API_KEY:
             print("Error: Nema API key-a i URL ne sadrzi auctions za koji ne mora API key.")
             return None
