@@ -1,2 +1,7 @@
 API_KEY.json
 temp
+#Use pip freeze and install virtual environment locally from requirements.txt
+Lib/
+__pycache__/
+Scripts/
+pyvenv.cfg
